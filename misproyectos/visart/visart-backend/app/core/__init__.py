@@ -1,0 +1,1 @@
+# Este archivo permite que la carpeta core sea reconocida como un módulo Python.
