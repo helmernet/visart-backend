@@ -1,0 +1,32 @@
+# Entornos virtuales de Python
+venv/
+env/
+ENV/
+.venv/
+
+# Cachés y archivos compilados de Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+.pytest_cache/
+
+# Archivos de entorno y configuración local
+.env
+.env.*
+
+# Archivos de base de datos y logs
+*.sqlite3
+*.db
+*.log
+
+# Configuraciones de IDE/editors
+.vscode/
+.idea/
+
+# Archivos del sistema
+.DS_Store
+
+# Node (por si tienes algo de JS)
+node_modules/
