@@ -1,0 +1,1 @@
+# Este archivo permite que la carpeta schemas sea reconocida como un módulo Python.
