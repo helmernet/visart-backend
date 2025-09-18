@@ -16,3 +16,4 @@ watchfiles
 typing-extensions
 python-jose
 email-validator
+httpx
