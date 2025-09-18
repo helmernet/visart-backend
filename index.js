@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("✅ Backend de SolarCalc funcionando correctamente.");
+  res.send("✅ Backend de Visart funcionando correctamente.");
 });
 
 app.post("/api/calculo", (req, res) => {
@@ -66,7 +66,7 @@ app.post("/api/calculo", (req, res) => {
   res.json(resultado);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Servidor backend de SolarCalc corriendo en el puerto ${PORT}`);
+  console.log(`Servidor backend de Visart corriendo en el puerto ${PORT}`);
 });
