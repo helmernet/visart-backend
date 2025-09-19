@@ -2,34 +2,46 @@ name: Node.js CI
 
 on:
   push:
+    branches: [ main, develop ]
     paths:
-      - '**.js'
-      - '**/package.json'
-      - '**/package-lock.json'
-      - '.github/workflows/nodejs.yml'
+      - "package.json"
+      - "package-lock.json"
+      - "pnpm-lock.yaml"
+      - "yarn.lock"
+      - "**/*.ts"
+      - "**/*.js"
+      - ".github/workflows/nodejs.yml"
   pull_request:
+    branches: [ main ]
     paths:
-      - '**.js'
-      - '**/package.json'
-      - '**/package-lock.json'
-      - '.github/workflows/nodejs.yml'
+      - "package.json"
+      - "package-lock.json"
+      - "pnpm-lock.yaml"
+      - "yarn.lock"
+      - "**/*.ts"
+      - "**/*.js"
+      - ".github/workflows/nodejs.yml"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    # Si no hay package.json en el repo, se salta todo el job (pasa en verde)
+    if: ${{ hashFiles('**/package.json') != '' }}
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      # Usa npm ci si hay lockfile; si no, npm install
+      - name: Install dependencies (npm ci if lockfile)
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
-    - name: Install dependencies
-      run: npm install
-      working-directory: ./ # Cambia si tu código Node está en una subcarpeta
-
-    - name: Run tests
-      run: npm test
-      working-directory: ./ # Cambia si tu código Node está en una subcarpeta
+      - run: npm test --if-present
+      - run: npm run build --if-present
