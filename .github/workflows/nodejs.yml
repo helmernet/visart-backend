@@ -1,0 +1,35 @@
+name: Node.js CI
+
+on:
+  push:
+    paths:
+      - '**.js'
+      - '**/package.json'
+      - '**/package-lock.json'
+      - '.github/workflows/nodejs.yml'
+  pull_request:
+    paths:
+      - '**.js'
+      - '**/package.json'
+      - '**/package-lock.json'
+      - '.github/workflows/nodejs.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./ # Cambia si tu código Node está en una subcarpeta
+
+    - name: Run tests
+      run: npm test
+      working-directory: ./ # Cambia si tu código Node está en una subcarpeta
